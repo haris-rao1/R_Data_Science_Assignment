@@ -63,3 +63,18 @@ result <- rental[film_inv, on = .(inventory_id)]
 not_rented <- result[is.na(rental_id), .(film_id, title)]
 
 not_rented
+#question 7
+film <- as.data.table(film)
+# Count films by rating
+rating_count <- film[, .N, by = rating]
+
+
+barplot(
+  rating_count$N,
+  names.arg = rating_count$rating,
+  main = "Number of Films by Rating",
+  xlab = "Film Rating",
+  ylab = "Count of Films",
+  col = "lightblue",
+  border = "black"
+)
