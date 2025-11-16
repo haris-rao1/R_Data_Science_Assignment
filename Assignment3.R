@@ -34,3 +34,17 @@ film[, .(total_films = .N), by = language_id]
 customer <- as.data.table(dbReadTable(con, "customer"))
 
 customer[, .(first_name, last_name, store_id)]
+
+#Question 5
+payment <- as.data.table(dbReadTable(con, "payment"))
+staff   <- as.data.table(dbReadTable(con, "staff"))
+
+# Join payment with staff using staff_id
+result <- payment[
+  staff, 
+  on = "staff_id", 
+  .(amount, payment_date, staff_name = paste(first_name, last_name))
+]
+
+result
+
