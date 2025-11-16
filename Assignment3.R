@@ -22,3 +22,10 @@ film <- as.data.table(dbReadTable(con, "film"))
   
 film[(rating=="PG" & rental_duration > 5)]
 
+
+# Question 2:
+
+film[,.(average_rental_rate=mean(rental_rate)),by=rating]
+
+#Question 3:
+film[, .(total_films = .N), by = language_id]
