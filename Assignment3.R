@@ -48,3 +48,18 @@ result <- payment[
 
 result
 
+
+film <- as.data.table(dbReadTable(con,"film"))
+inventory  <- as.data.table(dbReadTable(con,"inventory"))
+rental <- as.data.table(dbReadTable(con,"rental"))
+
+# Step 1: film LEFT JOIN inventory
+film_inv <- inventory[film, on = .(film_id)]
+
+# Step 2: LEFT JOIN with rental
+result <- rental[film_inv, on = .(inventory_id)]
+
+
+not_rented <- result[is.na(rental_id), .(film_id, title)]
+
+not_rented
