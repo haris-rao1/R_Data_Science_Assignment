@@ -29,3 +29,8 @@ film[,.(average_rental_rate=mean(rental_rate)),by=rating]
 
 #Question 3:
 film[, .(total_films = .N), by = language_id]
+
+# Question 4
+customer <- as.data.table(dbReadTable(con, "customer"))
+
+customer[, .(first_name, last_name, store_id)]
